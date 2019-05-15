@@ -25,5 +25,8 @@ public class FacturaDTO {
 	public TipoIdentificacionDTO getTipopago() {
 		return ObjectUtils.defaultIfNull(tipopago, new TipoIdentificacionDTO());
 	}
+	public Date getfecha() {
+		return ObjectUtils.defaultIfNull(fecha, new Date());
+	}
 	
 }

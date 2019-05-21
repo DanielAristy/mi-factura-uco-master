@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name= "FAC_PAIS_TBL", schema = "dbo")
-public class PaisDominio {
+@Table(name= "FAC_PRODUCTO_TBL", schema = "dbo")
+public class ProductoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,13 @@ public class PaisDominio {
 	@Column(name = "NOMBRE", nullable = false, length = 50)
 	private String nombre;
 	
+	@Column(name = "VALOR", nullable = false)
+	private double valor;
+	
 	public void setCodigo(int codigo) {
 		
 		if (codigo < 0) {
-				throw FacturanetException.CREAR("El codigo de un paÌs no puede ser menor que 0", CapaEnum.DOMINIO);
+				throw FacturanetException.CREAR("El codigo de un producto no puede ser menor que 0", CapaEnum.DOMINIO);
 			}
 		this.codigo = codigo;
 	}
@@ -37,14 +40,21 @@ public class PaisDominio {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
 			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre del paÌs no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+				throw FacturanetException.CREAR("El nombre del producto no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-ZÒ—·¡È…ÌÕÛ”˙⁄ ]+$")) {
-				throw FacturanetException.CREAR("El nombre del paÌs ingresado no es valido", CapaEnum.DOMINIO);
+			if (nombreTmp.matches("^[a-zA-Z0-9Ò—·¡È…ÌÕÛ”˙⁄ ]+$")) {
+				throw FacturanetException.CREAR("El nombre del producto ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}
 		this.nombre = nombreTmp;
 	}
+	private void setValor(double valor) {
+		if (valor < 0 ) {
+			throw FacturanetException.CREAR("El valor no puede ser menor a 0", CapaEnum.DOMINIO);
+		}
+		this.valor = valor;
+	}
+	
 	
 	
 

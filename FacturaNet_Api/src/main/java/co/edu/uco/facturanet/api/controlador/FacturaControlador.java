@@ -16,6 +16,13 @@ import co.edu.uco.facturanet.dto.FacturaDTO;
 @RequestMapping("/api/factura")
 public class FacturaControlador {
 	
+	
+	@GetMapping
+	@RequestMapping("/saludar")
+	public String Saludar() {
+		return "hola mundo";
+	}
+	
 	@PostMapping
 	public RespuestaApi<FacturaDTO> crear(@RequestBody FacturaDTO factura) {
 		RespuestaApi<FacturaDTO> respuesta = new RespuestaApi<FacturaDTO>();

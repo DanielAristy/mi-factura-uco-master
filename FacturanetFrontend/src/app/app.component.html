@@ -1,21 +1,139 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container app" >
+    <!--Titulo y alerta-->
+    <div class="row">
+        <div class="col-sm-8">
+                <h1 class="text-center">
+                    {{ titulo }}
+                </h1>
+                <h2 class="text-center">
+                    {{ subtitulo }}
+                </h2>
+        </div>
+        <div class="col-sm-4">
+            <div class="alert alert-success alert-dismissable" *ngIf ="mensaje" >
+                <a href="#" class="close" (click)="cerrarAlerta()">
+                    &times;
+                </a>
+                {{ mensaje }}
+            </div>
+        </div>
+    </div>
+    <!--Imagen y primer formulario de agregar producto-->
+    <div class="row app">
+        <div class = "col-sm-4">
+            <img width="300" src="./assets/bill.png"/>
+        </div>
+        <div class="col-sm-8">
+            <h2>
+                Crea tus productos:
+            </h2>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="codigo" class="control-label col-sm-4">
+                        <strong>Codigo del producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="int" class="form-control" id="codigo" name="codigo" 
+                        [(ngModel)]="model.codigo" placeholder="Agregue el id del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nombre" class="control-label col-sm-2">
+                        <strong>Producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nombre" name="nombre" 
+                        [(ngModel)]="model.nombre" placeholder="Agregue el nombre del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="valor" class="control-label col-sm-4">
+                            <strong>Valor del producto</strong>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="int" class="form-control" id="valor" name="valor" 
+                            [(ngModel)]="model.valor" placeholder="Agregue el valor del producto">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-success" (click)="agregarproducto()">
+                                Guardar producto
+                            </button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <!--Formulario con los productos, editar y borrarlos-->
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>Productos</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of productos; let i = index">
+                        <td>{{ producto.codigo }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.valor }}</td>
+                        <td>
+                            <a (click)="editarproducto(i)" class="btn btn-success boton" >
+                                Edit
+                            </a>
+                            <a (click)="eliminarproducto(i)" class="btn btn-danger boton">
+                                Borrar
+                            </a>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4" [hidden] = "ocultareditarproducto">
+            <h2>Actualización de productos</h2>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="codigo" class="control-label col-sm-8">
+                        <strong>Codigo del producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="int" class="form-control" id="codigo" name="codigo" 
+                        [(ngModel)]="model2.codigo" placeholder="Agregue el id del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nombre" class="control-label col-sm-2">
+                        <strong>Producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nombre" name="nombre" 
+                        [(ngModel)]="model2.nombre" placeholder="Agregue el nombre del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label for="valor" class="control-label col-sm-8">
+                            <strong>Valor del producto</strong>
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="int" class="form-control" id="valor" name="valor" 
+                            [(ngModel)]="model2.valor" placeholder="Agregue el valor del producto">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-success" (click)="actualizarempleado()">
+                                Guardar producto
+                            </button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>

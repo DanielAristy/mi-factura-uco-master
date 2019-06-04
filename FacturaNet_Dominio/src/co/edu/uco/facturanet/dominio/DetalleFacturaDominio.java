@@ -42,8 +42,7 @@ public class DetalleFacturaDominio {
 		setProducto(null);
 	}
 	
-	public DetalleFacturaDominio(int codigo, ProductoDominio producto, FacturaDominio factura, double cantidad,
-			double valor) {
+	public DetalleFacturaDominio(int codigo, ProductoDominio producto, FacturaDominio factura, double cantidad) {
 		super();
 		this.codigo = codigo;
 		this.producto = producto;

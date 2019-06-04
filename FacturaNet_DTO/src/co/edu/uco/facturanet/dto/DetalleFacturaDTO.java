@@ -8,23 +8,28 @@ import lombok.Data;
 public class DetalleFacturaDTO {
 	private int codigo;
 	private ProductoDTO producto;
+	private FacturaDTO factura;
 	private double cantidad;
-	private double valor;
 	
 	public DetalleFacturaDTO() {
 		setProducto(null);
+		setFactura(null);
 	}
 	
-	public DetalleFacturaDTO(int codigo, ProductoDTO producto, double cantidad, double valor) {
+	public DetalleFacturaDTO(int codigo, ProductoDTO producto,FacturaDTO factura, double cantidad) {
 		setCodigo(codigo);
 		setProducto(producto);
+		setFactura(factura);
 		setCantidad(cantidad);
-		setValor(valor);
 	
 	}
 	
 	public ProductoDTO getProducto() {
 		return ObjectUtils.defaultIfNull(producto, new ProductoDTO());
+	}
+	
+	public FacturaDTO getFactura() {
+		return ObjectUtils.defaultIfNull(factura, new FacturaDTO());
 	}
 
 

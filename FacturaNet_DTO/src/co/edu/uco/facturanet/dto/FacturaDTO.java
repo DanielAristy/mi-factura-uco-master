@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.ObjectUtils;
+
 import lombok.Data;
 
 @Data
@@ -16,7 +17,6 @@ public class FacturaDTO {
 	private ClienteDTO empleado;
 	private Date fecha;
 	private TipoPagoDTO tipopago;
-	private double valor;
 	private List<DetalleFacturaDTO> listaProductos;
 	
 	public FacturaDTO() {
@@ -26,14 +26,12 @@ public class FacturaDTO {
 		setListaProductos(null);
 	}
 	
-	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago,
-			double valor, List<DetalleFacturaDTO> listaProductos) {
+	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago, List<DetalleFacturaDTO> listaProductos) {
 		setCodigo(codigo);
 		setCliente(cliente);
 		setEmpleado(empleado);
 		setFecha(fecha);
 		setTipopago(tipopago);
-		setValor(valor);
 		setListaProductos(listaProductos);
 	}
 	
@@ -43,15 +41,14 @@ public class FacturaDTO {
 	public ClienteDTO getEmpleado() {
 		return ObjectUtils.defaultIfNull(empleado, new ClienteDTO());
 	}
-	public TipoPagoDTO getTipopago() {
+	public TipoPagoDTO getTipoPago() {
 		return ObjectUtils.defaultIfNull(tipopago, new TipoPagoDTO());
 	}
-	public Date getfecha() {
+	public Date getFecha() {
 		return ObjectUtils.defaultIfNull(fecha, new Date());
 	}
 	public List<DetalleFacturaDTO> getListaProductos() {
 		return ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDTO>());
 	}
-	
 	
 }

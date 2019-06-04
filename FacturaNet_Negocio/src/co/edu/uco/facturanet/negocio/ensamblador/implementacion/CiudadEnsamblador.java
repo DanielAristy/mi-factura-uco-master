@@ -1,6 +1,7 @@
 package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
 import co.edu.uco.facturanet.dominio.CiudadDominio;
+import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.DepartamentoEnsamblador.obtenerDepartamentoEnsamblador;
 import co.edu.uco.facturanet.dominio.DepartamentoDominio;
 import co.edu.uco.facturanet.dominio.PaisDominio;
 import co.edu.uco.facturanet.dto.CiudadDTO;
@@ -19,7 +20,7 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 		super();
 	}
 	
-	private static final IEnsamblador<CiudadDTO, CiudadDominio> obtenerCiudadEnsamblador() {
+	public static final IEnsamblador<CiudadDTO, CiudadDominio> obtenerCiudadEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -31,20 +32,18 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 		}
 		
 		return new CiudadDTO(dominio.getCodigo(), dominio.getNombre(), 
-				new DepartamentoDTO(dominio.getDepartamento().getCodigo(),dominio.getDepartamento().getNombre(),
-						new PaisDTO(dominio.getDepartamento().getPais().getCodigo(),dominio.getDepartamento().getPais().getNombre())));
+				obtenerDepartamentoEnsamblador().ensamblarDTO(dominio.getDepartamento()));
 	}
 
 	@Override
 	public CiudadDominio ensamblarDominio(CiudadDTO dto) {
 		if (dto == null) {
-			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Ciudad el objeto"
-					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
+			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de Ciudad el objeto"
+					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
 		return new CiudadDominio(dto.getCodigo(), dto.getNombre(), 
-				new DepartamentoDominio(dto.getDepartamento().getCodigo(),dto.getDepartamento().getNombre(),
-						new PaisDominio(dto.getDepartamento().getPais().getCodigo(),dto.getDepartamento().getPais().getNombre())));
+				obtenerDepartamentoEnsamblador().ensamblarDominio(dto.getDepartamento()));
 	}
 
 }

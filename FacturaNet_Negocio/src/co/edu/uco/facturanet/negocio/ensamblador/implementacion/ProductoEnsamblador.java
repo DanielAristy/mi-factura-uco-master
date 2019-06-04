@@ -17,7 +17,7 @@ public class ProductoEnsamblador implements IEnsamblador<ProductoDTO, ProductoDo
 		super();
 	}
 	
-	private static final IEnsamblador<ProductoDTO, ProductoDominio> obtenerProductoEnsamblador() {
+	public static final IEnsamblador<ProductoDTO, ProductoDominio> obtenerProductoEnsamblador() {
 		return INSTANCIA;
 	}
 	
@@ -33,8 +33,8 @@ public class ProductoEnsamblador implements IEnsamblador<ProductoDTO, ProductoDo
 	@Override
 	public ProductoDominio ensamblarDominio(ProductoDTO dto) {
 		if (dto == null) {
-			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Producto el objeto"
-					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
+			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de datos de Producto el objeto"
+					+ "de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		return new ProductoDominio(dto.getCodigo(), dto.getNombre(), dto.getValor());
 	}

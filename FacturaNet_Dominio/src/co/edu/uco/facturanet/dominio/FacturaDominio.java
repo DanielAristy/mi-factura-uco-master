@@ -46,7 +46,6 @@ public class FacturaDominio {
 	@JoinColumn
 	private TipoPagoDominio tipoPago;
 	
-	
 	@ManyToOne
 	@JoinColumn
 	private List<DetalleFacturaDominio> listaProductos;
@@ -59,17 +58,6 @@ public class FacturaDominio {
 	}
 	
 	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
-			TipoPagoDominio tipoPago) {
-		super();
-		this.codigo = codigo;
-		this.cliente = cliente;
-		this.empleado = empleado;
-		this.fecha = fecha;
-		this.tipoPago = tipoPago;
-		setListaProductos(null);
-	}
-	
-	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
 			TipoPagoDominio tipoPago, List<DetalleFacturaDominio> listaProductos) {
 		super();
 		this.codigo = codigo;
@@ -79,7 +67,7 @@ public class FacturaDominio {
 		this.tipoPago = tipoPago;
 		this.listaProductos = listaProductos;
 	}
-
+	
 	public void setCodigo(int codigo) {
 		
 		if (codigo < 0) {

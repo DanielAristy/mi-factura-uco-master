@@ -7,7 +7,9 @@ import co.edu.uco.facturanet.dto.ProductoDTO;
 import co.edu.uco.facturanet.negocio.ensamblador.IEnsamblador;
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
 import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
+import lombok.Data;
 
+@Data
 public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 	
 	private static final IEnsamblador<PaisDTO, PaisDominio> 
@@ -17,7 +19,7 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 		super();
 	}
 	
-	private static final IEnsamblador<PaisDTO, PaisDominio> obtenerPaisEnsamblador() {
+	public static final IEnsamblador<PaisDTO, PaisDominio> obtenerPaisEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -33,8 +35,8 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 	@Override
 	public PaisDominio ensamblarDominio(PaisDTO dto) {
 		if (dto == null) {
-			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Pais el objeto"
-					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
+			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio  de Pais el objeto"
+					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		return new PaisDominio(dto.getCodigo(), dto.getNombre());
 	}

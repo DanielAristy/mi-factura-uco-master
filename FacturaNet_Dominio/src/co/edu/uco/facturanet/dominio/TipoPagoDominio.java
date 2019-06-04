@@ -20,11 +20,21 @@ public class TipoPagoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
 	private String nombre;
+	
+	public TipoPagoDominio() {
+		
+	}
+	
+	public TipoPagoDominio(int codigo, String nombre) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+	}
 	
 	public void setCodigo(int codigo) {
 		
@@ -45,7 +55,5 @@ public class TipoPagoDominio {
 		}
 		this.nombre = nombreTmp;
 	}
-	
-	
 
 }

@@ -1,5 +1,6 @@
 package co.edu.uco.facturanet.dominio;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
@@ -11,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Data
@@ -20,12 +23,29 @@ public class CiudadDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
 	private String nombre;
 	
+	@ManyToOne()
+	@JoinColumn
+	private DepartamentoDominio departamento;
+	
+	public CiudadDominio() {
+		setDepartamento(null);
+	}
+	
+	
+	public CiudadDominio(int codigo, String nombre, DepartamentoDominio departamento) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.departamento = departamento;
+	}
+
+
 	public void setCodigo(int codigo) {
 		
 		if (codigo < 0) {
@@ -44,6 +64,10 @@ public class CiudadDominio {
 			}
 		}
 		this.nombre = nombreTmp;
+	}
+	
+	public void setDepartamento(DepartamentoDominio departamento) {
+		this.departamento = ObjectUtils.defaultIfNull(departamento, new DepartamentoDominio());
 	}
 	
 	

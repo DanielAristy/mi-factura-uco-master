@@ -16,6 +16,22 @@ public class ClienteDTO {
 	private String correoElectronico;
 	private CiudadDTO ciudadResidencia;
 	
+	public ClienteDTO() {
+		
+	}
+	
+	public ClienteDTO(int codigo, String identificacion, TipoIdentificacionDTO tipoIdentificacion, String nombre,
+			String telefono, String direccion, String correoElectronico, CiudadDTO ciudadResidencia) {
+		setCodigo(codigo);
+		setIdentificacion(identificacion);
+		setTipoIdentificacion(tipoIdentificacion);
+		setNombre(nombre);
+		setTelefono(telefono);
+		setDireccion(direccion);
+		setCorreoElectronico(correoElectronico);
+		setCiudadResidencia(ciudadResidencia);
+	}	
+	
 	public String getIdentificacion() {
 		return StringUtils.defaultString(identificacion);
 	}
@@ -42,5 +58,7 @@ public class ClienteDTO {
 
 	public CiudadDTO getCiudadResidencia() {
 		return ObjectUtils.defaultIfNull(ciudadResidencia, new CiudadDTO());
-	}	
+	}
+
+	
 }

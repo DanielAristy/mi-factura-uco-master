@@ -9,29 +9,41 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
 import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
 import lombok.Data;
 
-//@Data
+@Data
 @Entity
 @Table(name = "FAC_DEPARTAMENTO_TBL", schema = "dbo")
 public class DepartamentoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO")
+	@Column(name = "IN_CODIGO")
 	private int codigo;
 	
-	@Column(name = "NOMBRE")
+	@Column(name = "NV_NOMBRE")
 	private String nombre;
 	
 	@ManyToOne()
 	@JoinColumn
 	private PaisDominio pais;
 	
+	public DepartamentoDominio() {
+		setPais(null);
+	}
+	
+	public DepartamentoDominio(int codigo, String nombre, PaisDominio pais) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.pais = pais;
+	}
+
 	public void setCodigo(int codigo) {
 		
 		if (codigo < 0) {
@@ -51,8 +63,8 @@ public class DepartamentoDominio {
 		}
 		this.nombre = nombreTmp;
 	}
-	private void setPais(PaisDominio pais) {
-		this.pais = pais;
+	public void setPais(PaisDominio pais) {
+		this.pais = ObjectUtils.defaultIfNull(pais, new PaisDominio());
 	}
 	
 	

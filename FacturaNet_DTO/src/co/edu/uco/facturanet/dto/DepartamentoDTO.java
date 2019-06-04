@@ -11,7 +11,19 @@ public class DepartamentoDTO {
 	private int codigo;
 	private String nombre;
 	private PaisDTO pais;
-
+	
+	public DepartamentoDTO() {
+		setPais(null);
+	}
+	
+	public DepartamentoDTO(int codigo, String nombre, PaisDTO pais) {
+		super();
+		setCodigo(codigo);
+		setNombre(nombre);
+		setPais(pais);
+		
+	}
+	
 	public String getNombre() {
 		return StringUtils.defaultString(nombre);
 	}

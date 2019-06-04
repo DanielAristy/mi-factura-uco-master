@@ -9,9 +9,17 @@ public class TipoPagoDTO {
 	private int codigo;
 	private String nombre;
 	
+	public TipoPagoDTO() {
+		
+	}
+	
+	public TipoPagoDTO(int codigo, String nombre) {
+		setCodigo(codigo);
+		setNombre(nombre);
+	}
+	
 	public String getNombre() {
 		return StringUtils.defaultString(nombre);
 	}
-	
 
 }

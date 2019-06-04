@@ -1,11 +1,13 @@
 package co.edu.uco.facturanet.dominio;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
 import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,14 +21,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//@Data
+@Data
 @Entity
 @Table(name= "FAC_FACTURA_TBL", schema = "dbo")
 public class FacturaDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
 	@ManyToOne
@@ -37,20 +39,47 @@ public class FacturaDominio {
 	@JoinColumn
 	private ClienteDominio empleado;
 
-	@Column(name = "FECHA", nullable = false)
+	@Column(name = "DT_FECHA", nullable = false)
 	private Date fecha;
 	
 	@ManyToOne
 	@JoinColumn
 	private TipoPagoDominio tipoPago;
 	
-	@Column(name = "VALOR", nullable = false)
-	private double valor;
-		
+	
 	@ManyToOne
 	@JoinColumn
 	private List<DetalleFacturaDominio> listaProductos;
 	
+	public FacturaDominio() {
+		setCliente(null);
+		setEmpleado(null);
+		setFecha(null);
+		setTipoPago(null);
+	}
+	
+	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
+			TipoPagoDominio tipoPago) {
+		super();
+		this.codigo = codigo;
+		this.cliente = cliente;
+		this.empleado = empleado;
+		this.fecha = fecha;
+		this.tipoPago = tipoPago;
+		setListaProductos(null);
+	}
+	
+	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
+			TipoPagoDominio tipoPago, List<DetalleFacturaDominio> listaProductos) {
+		super();
+		this.codigo = codigo;
+		this.cliente = cliente;
+		this.empleado = empleado;
+		this.fecha = fecha;
+		this.tipoPago = tipoPago;
+		this.listaProductos = listaProductos;
+	}
+
 	public void setCodigo(int codigo) {
 		
 		if (codigo < 0) {
@@ -59,34 +88,37 @@ public class FacturaDominio {
 		this.codigo = codigo;
 	}
 
-	private void setCliente(ClienteDominio cliente) {
-		this.cliente = cliente;
+	public void setCliente(ClienteDominio cliente) {
+		this.cliente = ObjectUtils.defaultIfNull(cliente, new ClienteDominio());
 	}
 
-	private void setEmpleado(ClienteDominio empleado) {
-		this.empleado = empleado;
+	public void setEmpleado(ClienteDominio empleado) {
+		this.empleado = ObjectUtils.defaultIfNull(empleado, new ClienteDominio());
 	}
 
-	private void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setFecha(Date fecha) {
+		this.fecha = ObjectUtils.defaultIfNull(fecha, new Date());
 	}
 
-	private void setTipoPago(TipoPagoDominio tipoPago) {
-		this.tipoPago = tipoPago;
+	public void setTipoPago(TipoPagoDominio tipoPago) {
+		this.tipoPago = ObjectUtils.defaultIfNull(tipoPago, new TipoPagoDominio());
 	}
 
-	private void setValor(double valor) {
-		if (valor < 0 ) {
-			throw FacturanetException.CREAR("El valor no puede ser menor a 0", CapaEnum.DOMINIO);
+	public void setListaProductos(List<DetalleFacturaDominio> listaProductos) {
+		this.listaProductos = ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDominio>());
+	}
+	
+	public List<DetalleFacturaDominio> getListaProductos() {
+		return ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDominio>());
+	}
+	
+	public double getValor() {
+		double valor = 0;
+		for (DetalleFacturaDominio detallefacturadominio : getListaProductos()) {
+			valor = valor + detallefacturadominio.getValor();
 		}
-		this.valor = valor;
+		return valor;
 	}
-
-	private void setListaProductos(List<DetalleFacturaDominio> listaProductos) {
-		this.listaProductos = listaProductos;
-	}
-	
-	
 	
 	
 

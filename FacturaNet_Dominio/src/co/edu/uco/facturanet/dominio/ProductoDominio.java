@@ -20,14 +20,25 @@ public class ProductoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
 	private String nombre;
 	
-	@Column(name = "VALOR", nullable = false)
+	@Column(name = "NU_VALOR", nullable = false)
 	private double valor;
+	
+	public ProductoDominio() {
+		
+	}
+	
+	public ProductoDominio(int codigo, String nombre, double valor) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.valor = valor;
+	}
 	
 	public void setCodigo(int codigo) {
 		
@@ -48,14 +59,12 @@ public class ProductoDominio {
 		}
 		this.nombre = nombreTmp;
 	}
-	private void setValor(double valor) {
+	public void setValor(double valor) {
 		if (valor < 0 ) {
 			throw FacturanetException.CREAR("El valor no puede ser menor a 0", CapaEnum.DOMINIO);
 		}
 		this.valor = valor;
 	}
-	
-	
-	
+
 
 }

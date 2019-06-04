@@ -10,6 +10,16 @@ import org.apache.commons.lang3.StringUtils;
 public class PaisDTO {
 	private int codigo;
 	private String nombre;
+	
+	public PaisDTO() {
+		
+	}
+	
+	public PaisDTO(int codigo, String nombre) {
+		setCodigo(codigo);
+		setNombre(nombre);
+		
+	}
 
 	public String getNombre() {
 		return StringUtils.defaultString(nombre);

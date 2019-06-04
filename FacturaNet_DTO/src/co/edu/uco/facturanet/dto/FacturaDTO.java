@@ -19,6 +19,23 @@ public class FacturaDTO {
 	private double valor;
 	private List<DetalleFacturaDTO> listaProductos;
 	
+	public FacturaDTO() {
+		setCliente(null);
+		setEmpleado(null);
+		setTipopago(null);
+		setListaProductos(null);
+	}
+	
+	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago,
+			double valor, List<DetalleFacturaDTO> listaProductos) {
+		setCodigo(codigo);
+		setCliente(cliente);
+		setEmpleado(empleado);
+		setFecha(fecha);
+		setTipopago(tipopago);
+		setValor(valor);
+		setListaProductos(listaProductos);
+	}
 	
 	public ClienteDTO getCliente() {
 		return ObjectUtils.defaultIfNull(cliente, new ClienteDTO());
@@ -35,5 +52,6 @@ public class FacturaDTO {
 	public List<DetalleFacturaDTO> getListaProductos() {
 		return ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDTO>());
 	}
+	
 	
 }

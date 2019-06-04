@@ -1,5 +1,6 @@
 package co.edu.uco.facturanet.dominio;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
@@ -22,31 +23,51 @@ public class ClienteDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "IDENTIFICACION", nullable = false)
+	@Column(name = "NV_IDENTIFICACION", nullable = false)
 	private String identificacion;
 	
 	@ManyToOne
 	@JoinColumn
 	private TipoIdentificacionDominio tipoIdentificacion;
 	
-	@Column(name = "NOMBRE", nullable = false)
+	@Column(name = "NV_NOMBRE", nullable = false)
 	private String nombre;
 	
-	@Column(name = "TELEFONO", nullable = false)
+	@Column(name = "NV_TELEFONO", nullable = false)
 	private String telefono;
 	
-	@Column(name = "DIRECCION", nullable = false)
+	@Column(name = "NV_DIRECCION", nullable = false)
 	private String direccion;
 	
-	@Column(name = "CORREOELECTRONICO", nullable = false)
+	@Column(name = "NV_CORREO_ELECTRONICO", nullable = false)
 	private String correoElectronico;
 	
 	@ManyToOne
 	@JoinColumn
 	private CiudadDominio ciudadResidencia;
+	
+	public ClienteDominio() {
+		setTipoIdentificacion(null);
+		setCiudadResidencia(null);
+	}
+	
+	public ClienteDominio(int codigo, String identificacion, TipoIdentificacionDominio tipoIdentificacion,
+			String nombre, String telefono, String direccion, String correoElectronico,
+			CiudadDominio ciudadResidencia) {
+		super();
+		this.codigo = codigo;
+		this.identificacion = identificacion;
+		this.tipoIdentificacion = tipoIdentificacion;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.correoElectronico = correoElectronico;
+		this.ciudadResidencia = ciudadResidencia;
+	}
+	
 	
 	public void setCodigo(int codigo) {
 		
@@ -68,7 +89,7 @@ public class ClienteDominio {
 		this.nombre = nombreTmp;
 		
 	}
-	private void setIdentificacion(String identificacion) {
+	public void setIdentificacion(String identificacion) {
 		String identificacionTmp = StringUtils.trimToEmpty(identificacion);
 		if (identificacionTmp.length() > 0 ) {
 			if (identificacionTmp.length() > 50 ) {
@@ -80,11 +101,11 @@ public class ClienteDominio {
 		}
 		this.identificacion = identificacionTmp;
 	}
-	private void setTipoIdentificacion(TipoIdentificacionDominio tipoIdentificacion) {
-		this.tipoIdentificacion = tipoIdentificacion;
+	public void setTipoIdentificacion(TipoIdentificacionDominio tipoIdentificacion) {
+		this.tipoIdentificacion = ObjectUtils.defaultIfNull(tipoIdentificacion, new TipoIdentificacionDominio());
 	}
 	
-	private void setTelefono(String telefono) {
+	public void setTelefono(String telefono) {
 		String telefonoTmp = StringUtils.trimToEmpty(telefono);
 		if (telefonoTmp.length() > 0 ) {
 			if (telefonoTmp.length() > 50 ) {
@@ -97,7 +118,7 @@ public class ClienteDominio {
 		this.telefono = telefonoTmp;
 	}
 	
-	private void setDireccion(String direccion) {
+	public void setDireccion(String direccion) {
 		String direccionTmp = StringUtils.trimToEmpty(direccion);
 		if (direccionTmp.length() > 0 ) {
 			if (direccionTmp.length() > 50 ) {
@@ -110,7 +131,7 @@ public class ClienteDominio {
 		this.direccion = direccionTmp;
 	}
 	
-	private void setCorreoElectronico(String correoElectronico) {
+	public void setCorreoElectronico(String correoElectronico) {
 		String correoTmp = StringUtils.trimToEmpty(correoElectronico);
 		if (correoTmp.length() > 0 ) {
 			if (correoTmp.length() > 50 ) {
@@ -123,11 +144,8 @@ public class ClienteDominio {
 		this.correoElectronico = correoElectronico;
 	}
 	
-	private void setCiudadResidencia(CiudadDominio ciudadResidencia) {
-		this.ciudadResidencia = ciudadResidencia;
+	public void setCiudadResidencia(CiudadDominio ciudadResidencia) {
+		this.ciudadResidencia = ObjectUtils.defaultIfNull(ciudadResidencia, new CiudadDominio());
 	}
-	
-	
-	
 
 }

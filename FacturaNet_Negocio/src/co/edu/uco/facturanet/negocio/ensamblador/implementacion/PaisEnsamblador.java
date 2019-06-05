@@ -7,9 +7,8 @@ import co.edu.uco.facturanet.dto.ProductoDTO;
 import co.edu.uco.facturanet.negocio.ensamblador.IEnsamblador;
 import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
 import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
-import lombok.Data;
 
-@Data
+
 public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 	
 	private static final IEnsamblador<PaisDTO, PaisDominio> 

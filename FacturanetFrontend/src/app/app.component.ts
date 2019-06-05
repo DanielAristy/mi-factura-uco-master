@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Producto } from './producto';
+import { ProductoServiceService } from './producto-service.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,9 @@ export class AppComponent {
   subtitulo = "Sus compras al mejor precio";
   mensaje:string ="";
   
+  constructor() {
+   
+  }
   facturas = [
     {"codigo": 1 ,"cliente": "Sergio","empleado": "Andrés","fecha": "5/06/2019","tipo_pago": "contado", "producto": "Cocacola","cantidad": 1},
     {"codigo": 2,"cliente": "Juanita","empleado": "Antonio","fecha": "5/06/2019","tipo_pago": "contado","producto": "Pepsi","cantidad": 1},
@@ -19,6 +24,7 @@ export class AppComponent {
   model: any = {};
   model2: any = {};
   ocultareditarproducto: boolean = true;
+
 
   agregarfactura(): void {
 

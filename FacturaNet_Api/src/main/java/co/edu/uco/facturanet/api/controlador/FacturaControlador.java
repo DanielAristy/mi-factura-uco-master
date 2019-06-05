@@ -18,6 +18,7 @@ import co.edu.uco.facturanet.dto.FacturaDTO;
 import co.edu.uco.facturanet.dto.ProductoDTO;
 import co.edu.uco.facturanet.dto.TipoPagoDTO;
 import co.edu.uco.facturanet.negocio.fachada.IFacturaFachada;
+import co.edu.uco.facturanet.negocio.fachada.IProductoFachada;
 import co.edu.uco.facturanet.negocio.fachada.implementacion.FacturaFachada;
 
 @RestController
@@ -26,6 +27,38 @@ public class FacturaControlador {
 	
 	@Autowired
 	private IFacturaFachada facturaFachada;
+	
+	@Autowired
+	private IProductoFachada productoFachada;
+	
+	
+	@GetMapping("/dummyproducto")
+	@ResponseBody
+	public ProductoDTO crearDummyProducto() {
+		
+		ProductoDTO producto = new ProductoDTO();
+		producto.setCodigo(1);
+		producto.setNombre("Fabuloso");
+		producto.setValor(1500);
+	
+		return producto;
+	}
+	
+	@PostMapping("/producto")
+	public RespuestaApi<ProductoDTO> crearProducto(@RequestBody ProductoDTO producto) {
+		
+		productoFachada.registrar(producto);
+		
+		RespuestaApi<ProductoDTO> respuesta = new RespuestaApi<ProductoDTO>();
+		respuesta.setEstado("EXITO");
+		List<String> mensajes = new ArrayList<String>();
+		mensajes.add("FACTURA REGISTRADA EXITOSAMENTE");
+		respuesta.setMensajes(mensajes);
+		respuesta.setDatos(new ArrayList<ProductoDTO>());
+		respuesta.getDatos().add(producto);
+		return respuesta;
+	}	
+	
 	
 	@GetMapping("/dummy")
 	@ResponseBody

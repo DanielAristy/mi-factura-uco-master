@@ -52,9 +52,11 @@ public class DetalleFacturaEnsamblador implements IEnsamblador<DetalleFacturaDTO
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
+		ProductoDTO producto = ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDTO(dominio.getProducto());
+		FacturaDTO factura = FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDTO(dominio.getFactura());
 		return new DetalleFacturaDTO(dominio.getCodigo(),
-				ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDTO(dominio.getProducto()),
-				FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDTO(dominio.getFactura()),
+				producto,
+				factura,
 				dominio.getCantidad(),
 				dominio.getValor());
 	}
@@ -65,10 +67,12 @@ public class DetalleFacturaEnsamblador implements IEnsamblador<DetalleFacturaDTO
 			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de datos de Detalle Factura el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-			
+		
+		ProductoDominio producto = ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDominio(dto.getProducto());
+		FacturaDominio factura = FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDominio(dto.getFactura());
 		return new DetalleFacturaDominio(dto.getCodigo(),
-				ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDominio(dto.getProducto()),
-				FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDominio(dto.getFactura()),
+				producto,
+				factura,
 				dto.getCantidad());
 	}
 

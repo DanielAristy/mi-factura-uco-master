@@ -18,6 +18,7 @@ import co.edu.uco.facturanet.dto.FacturaDTO;
 import co.edu.uco.facturanet.dto.ProductoDTO;
 import co.edu.uco.facturanet.dto.TipoPagoDTO;
 import co.edu.uco.facturanet.negocio.fachada.IFacturaFachada;
+import co.edu.uco.facturanet.negocio.fachada.implementacion.FacturaFachada;
 
 @RestController
 @RequestMapping("/api/factura")
@@ -61,7 +62,7 @@ public class FacturaControlador {
 		FacturaDTO factura = new FacturaDTO();
 		factura.setCliente(cliente);
 		factura.setEmpleado(empleado);
-		factura.setTipopago(tipoPago);
+		factura.setTipoPago(tipoPago);
 		factura.setListaProductos(listaproductos);
 		
 		

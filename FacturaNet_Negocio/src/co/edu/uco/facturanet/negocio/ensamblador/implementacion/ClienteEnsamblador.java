@@ -39,13 +39,16 @@ public class ClienteEnsamblador implements IEnsamblador<ClienteDTO, ClienteDomin
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
-		return new ClienteDTO(dominio.getCodigo(),dominio.getIdentificacion(),
-				obtenerTipoIdentificacionEnsamblador().ensamblarDTO(dominio.getTipoIdentificacion()),
+		TipoIdentificacionDTO tipoidentificacion = obtenerTipoIdentificacionEnsamblador().ensamblarDTO(dominio.getTipoIdentificacion());
+		CiudadDTO ciudad = obtenerCiudadEnsamblador().ensamblarDTO(dominio.getCiudadResidencia());
+		return new ClienteDTO(dominio.getCodigo(),
+				dominio.getIdentificacion(),
+				tipoidentificacion,
 				dominio.getNombre(),
 				dominio.getTelefono(),
 				dominio.getDireccion(),
 				dominio.getCorreoElectronico(),
-				obtenerCiudadEnsamblador().ensamblarDTO(dominio.getCiudadResidencia()));
+				ciudad);
 	}
 
 	@Override
@@ -55,13 +58,16 @@ public class ClienteEnsamblador implements IEnsamblador<ClienteDTO, ClienteDomin
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
-		return new ClienteDominio(dto.getCodigo(),dto.getIdentificacion(),
-				obtenerTipoIdentificacionEnsamblador().ensamblarDominio(dto.getTipoIdentificacion()),
+		TipoIdentificacionDominio tipoidentificacion = obtenerTipoIdentificacionEnsamblador().ensamblarDominio(dto.getTipoIdentificacion());
+		CiudadDominio ciudad = obtenerCiudadEnsamblador().ensamblarDominio(dto.getCiudadResidencia());
+		return new ClienteDominio(dto.getCodigo(),
+				dto.getIdentificacion(),
+				tipoidentificacion,
 				dto.getNombre(),
 				dto.getTelefono(),
 				dto.getDireccion(),
 				dto.getCorreoElectronico(),
-				obtenerCiudadEnsamblador().ensamblarDominio(dto.getCiudadResidencia()));
+				ciudad);
 	}
 
 	@Override

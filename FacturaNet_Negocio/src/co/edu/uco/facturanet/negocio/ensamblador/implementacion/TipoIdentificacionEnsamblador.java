@@ -29,7 +29,8 @@ public class TipoIdentificacionEnsamblador implements IEnsamblador<TipoIdentific
 			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de tipo identificacion el objeto"
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new TipoIdentificacionDTO(dominio.getCodigo(), dominio.getNombre());
+		return new TipoIdentificacionDTO(dominio.getCodigo(), 
+				dominio.getNombre());
 	}
 
 	@Override
@@ -38,7 +39,8 @@ public class TipoIdentificacionEnsamblador implements IEnsamblador<TipoIdentific
 			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de tipo identificacion el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new TipoIdentificacionDominio(dto.getCodigo(), dto.getNombre());
+		return new TipoIdentificacionDominio(dto.getCodigo(), 
+				dto.getNombre());
 		
 	}
 

@@ -30,9 +30,10 @@ public class DepartamentoEnsamblador implements IEnsamblador<DepartamentoDTO, De
 			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Departamento el objeto"
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-
-		return new DepartamentoDTO(dominio.getCodigo(), dominio.getNombre(),  
-				obtenerPaisEnsamblador().ensamblarDTO(dominio.getPais()));
+		PaisDTO pais = obtenerPaisEnsamblador().ensamblarDTO(dominio.getPais());
+		return new DepartamentoDTO(dominio.getCodigo(), 
+				dominio.getNombre(),  
+				pais);
 	}
 
 	@Override
@@ -41,8 +42,10 @@ public class DepartamentoEnsamblador implements IEnsamblador<DepartamentoDTO, De
 			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Departamento el objeto"
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new DepartamentoDominio(dto.getCodigo(), dto.getNombre(), 
-				obtenerPaisEnsamblador().ensamblarDominio(dto.getPais()));
+		PaisDominio pais = obtenerPaisEnsamblador().ensamblarDominio(dto.getPais());
+		return new DepartamentoDominio(dto.getCodigo(), 
+				dto.getNombre(), 
+				pais);
 	}
 
 	@Override

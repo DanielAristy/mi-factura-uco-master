@@ -116,10 +116,6 @@ public class FacturaDominio {
 		this.tipoPago = ObjectUtils.defaultIfNull(tipoPago, new TipoPagoDominio());
 	}
 	
-	public TipoPagoDominio getTipoPago() {
-		return ObjectUtils.defaultIfNull(tipoPago, new TipoPagoDominio());
-	}
-
 	public void setListaProductos(List<DetalleFacturaDominio> listaProductos) {
 		this.listaProductos = ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDominio>());
 		

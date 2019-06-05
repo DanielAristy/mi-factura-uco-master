@@ -19,18 +19,15 @@
         </div>
     </div>
     <!--Imagen y primer formulario de agregar producto-->
-    <div class="row app">
-        <div class = "col-sm-4">
-            <img width="300" src="./assets/bill.png"/>
-        </div>
+    <div class="row">
         <div class="col-sm-8">
             <h2>
-                Crea tus productos:
+                <strong>Crea tu factura:</strong>
             </h2>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="codigo" class="control-label col-sm-4">
-                        <strong>Codigo del producto</strong>
+                    <label for="codigo" class="control-label col-sm-2">
+                        <strong>Codigo</strong>
                     </label>
                     <div class="col-sm-10">
                         <input type="int" class="form-control" id="codigo" name="codigo" 
@@ -38,56 +35,98 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nombre" class="control-label col-sm-2">
-                        <strong>Producto</strong>
+                    <label for="cliente" class="control-label col-sm-2">
+                        <strong>Cliente</strong>
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nombre" name="nombre" 
-                        [(ngModel)]="model.nombre" placeholder="Agregue el nombre del producto">
+                        <input type="text" class="form-control" id="cliente" name="cliente" 
+                        [(ngModel)]="model.cliente" placeholder="Agregue el cliente">
                     </div>
                 </div>
                 <div class="form-group">
-                        <label for="valor" class="control-label col-sm-4">
-                            <strong>Valor del producto</strong>
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="int" class="form-control" id="valor" name="valor" 
-                            [(ngModel)]="model.valor" placeholder="Agregue el valor del producto">
-                        </div>
+                    <label for="empleado" class="control-label col-sm-2">
+                        <strong>Empleado</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="empleado" name="empleado" 
+                        [(ngModel)]="model.empleado" placeholder="Agregue el empleado">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <button type="submit" class="btn btn-success" (click)="agregarproducto()">
-                                Guardar producto
-                            </button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipo_pago" class="control-label col-sm-4">
+                        <strong>Tipo de pago</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tipo_pago" name="tipo_pago" 
+                        [(ngModel)]="model.tipo_pago" placeholder="Agregue el tipo de pago">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="producto" class="control-label col-sm-2">
+                        <strong>Producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="producto" name="producto" 
+                        [(ngModel)]="model.producto" placeholder="Agregue el nombre del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad" class="control-label col-sm-2">
+                        <strong>Cantidad</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="int" class="form-control" id="cantidad" name="cantidad" 
+                        [(ngModel)]="model.cantidad" placeholder="Agregue la cantidad de productos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-success" (click)="agregarfactura()">
+                            Facturar
+                        </button>
+                    </div>
+                </div>
             </form>
+        </div>
+        <div class = "col-sm-4">
+            <img width="300" src="./assets/bill.png"/>
         </div>
     </div>
     <!--Formulario con los productos, editar y borrarlos-->
     <div class="row">
-        <div class="col-sm-8">
-            <h2>Productos</h2>
+        <div class="col-sm-12">
+            <h2><strong>Facturas</strong></h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Valor</th>
+                        <th>Codigo</th>
+                        <th>Cliente</th>
+                        <th>Empleado</th>
+                        <th>Fecha</th>
+                        <th>Tipo de Pago</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let producto of productos; let i = index">
-                        <td>{{ producto.codigo }}</td>
-                        <td>{{ producto.nombre }}</td>
-                        <td>{{ producto.valor }}</td>
+                    <tr *ngFor="let factura of facturas; let i = index">
+                        <td>{{ factura.codigo }}</td>
+                        <td>{{ factura.cliente }}</td>
+                        <td>{{ factura.empleado }}</td>
+                        <td>{{ factura.fecha }}</td>
+                        <td>{{ factura.tipo_pago }}</td>
+                        <td>{{ factura.producto }}</td>
+                        <td>{{ factura.cantidad }}</td>
                         <td>
-                            <a (click)="editarproducto(i)" class="btn btn-success boton" >
+                            <a (click)="editarfactura(i)" class="btn btn-success boton" >
                                 Edit
                             </a>
-                            <a (click)="eliminarproducto(i)" class="btn btn-danger boton">
+                            <a (click)="eliminarfactura(i)" class="btn btn-danger boton">
                                 Borrar
+                            </a>
+                            <a (click)="verdetalle(i)" class="btn btn-info boton">
+                                Detalle
                             </a>
                         </td>
                         
@@ -95,12 +134,12 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-4" [hidden] = "ocultareditarproducto">
-            <h2>Actualización de productos</h2>
+        <div class="col-sm-8" [hidden] = "ocultareditarproducto">
+            <h2>Actualización de factura</h2>
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="codigo" class="control-label col-sm-8">
-                        <strong>Codigo del producto</strong>
+                    <label for="codigo" class="control-label col-sm-2">
+                        <strong>Codigo</strong>
                     </label>
                     <div class="col-sm-10">
                         <input type="int" class="form-control" id="codigo" name="codigo" 
@@ -108,30 +147,57 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="nombre" class="control-label col-sm-2">
-                        <strong>Producto</strong>
+                    <label for="cliente" class="control-label col-sm-2">
+                        <strong>Cliente</strong>
                     </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nombre" name="nombre" 
-                        [(ngModel)]="model2.nombre" placeholder="Agregue el nombre del producto">
+                        <input type="text" class="form-control" id="cliente" name="cliente" 
+                        [(ngModel)]="model2.cliente" placeholder="Agregue el cliente">
                     </div>
                 </div>
                 <div class="form-group">
-                        <label for="valor" class="control-label col-sm-8">
-                            <strong>Valor del producto</strong>
-                        </label>
-                        <div class="col-sm-10">
-                            <input type="int" class="form-control" id="valor" name="valor" 
-                            [(ngModel)]="model2.valor" placeholder="Agregue el valor del producto">
-                        </div>
+                    <label for="empleado" class="control-label col-sm-2">
+                        <strong>Empleado</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="empleado" name="empleado" 
+                        [(ngModel)]="model2.empleado" placeholder="Agregue el empleado">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <button type="submit" class="btn btn-success" (click)="actualizarempleado()">
-                                Guardar producto
-                            </button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="tipo_pago" class="control-label col-sm-4">
+                        <strong>Tipo de pago</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="tipo_pago" name="tipo_pago" 
+                        [(ngModel)]="model2.tipo_pago" placeholder="Agregue el tipo de pago">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="producto" class="control-label col-sm-2">
+                        <strong>Producto</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="producto" name="producto" 
+                        [(ngModel)]="model2.producto" placeholder="Agregue el nombre del producto">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad" class="control-label col-sm-2">
+                        <strong>Cantidad</strong>
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="int" class="form-control" id="cantidad" name="cantidad" 
+                        [(ngModel)]="model2.cantidad" placeholder="Agregue la cantidad de productos">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-success" (click)="actualizarfactura()">
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

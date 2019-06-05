@@ -13,8 +13,7 @@ public class DetalleFacturaDTO {
 	private double valor;
 	
 	public DetalleFacturaDTO() {
-		setProducto(null);
-		setFactura(null);
+		super();
 	}
 	
 	public DetalleFacturaDTO(int codigo, ProductoDTO producto,FacturaDTO factura, double cantidad,double valor) {

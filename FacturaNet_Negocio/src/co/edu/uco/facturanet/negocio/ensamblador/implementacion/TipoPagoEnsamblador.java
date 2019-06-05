@@ -27,7 +27,8 @@ public class TipoPagoEnsamblador implements IEnsamblador<TipoPagoDTO, TipoPagoDo
 			throw FacturanetException.CREAR("Para ensamblar un dominio de tipo pago el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new TipoPagoDominio(dto.getCodigo(), dto.getNombre());
+		return new TipoPagoDominio(dto.getCodigo(), 
+				dto.getNombre());
 	}
 
 	@Override
@@ -36,7 +37,8 @@ public class TipoPagoEnsamblador implements IEnsamblador<TipoPagoDTO, TipoPagoDo
 			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de tipo pago el objeto"
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new TipoPagoDTO(dominio.getCodigo(), dominio.getNombre());
+		return new TipoPagoDTO(dominio.getCodigo(), 
+				dominio.getNombre());
 	}
 
 	@Override

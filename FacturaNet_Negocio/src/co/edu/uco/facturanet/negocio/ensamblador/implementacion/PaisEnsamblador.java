@@ -30,7 +30,8 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Pais el objeto"
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new PaisDTO(dominio.getCodigo(), dominio.getNombre());
+		return new PaisDTO(dominio.getCodigo(), 
+				dominio.getNombre());
 	}
 
 	@Override
@@ -39,7 +40,8 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio  de Pais el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		return new PaisDominio(dto.getCodigo(), dto.getNombre());
+		return new PaisDominio(dto.getCodigo(), 
+				dto.getNombre());
 	}
 
 	@Override

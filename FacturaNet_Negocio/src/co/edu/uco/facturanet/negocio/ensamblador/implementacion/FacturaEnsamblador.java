@@ -43,17 +43,23 @@ public class FacturaEnsamblador implements IEnsamblador<FacturaDTO, FacturaDomin
 
 	@Override
 	public FacturaDTO ensamblarDTO(FacturaDominio dominio) {
-			if (dominio == null) {
-				throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Factura el objeto"
-						+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
-			}
-			return new FacturaDTO(dominio.getCodigo(),
-					obtenerClienteEnsamblador().ensamblarDTO(dominio.getCliente()), 
-					obtenerClienteEnsamblador().ensamblarDTO(dominio.getEmpleado()),
-					dominio.getFecha(), 
-					obtenerTipoPagoEnsamblador().ensamblarDTO(dominio.getTipoPago()),
-					obtenerDetalleFacturaEnsamblador().ensamblarListaDTOs(dominio.getListaProductos()),
-					dominio.getValor());
+		if (dominio == null) {
+			throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Factura el objeto"
+					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
+		}
+			
+		ClienteDTO cliente = obtenerClienteEnsamblador().ensamblarDTO(dominio.getCliente());
+		ClienteDTO empleado = obtenerClienteEnsamblador().ensamblarDTO(dominio.getEmpleado());
+		TipoPagoDTO tipopago = obtenerTipoPagoEnsamblador().ensamblarDTO(dominio.getTipoPago());
+		List<DetalleFacturaDTO> listaproductos = obtenerDetalleFacturaEnsamblador().ensamblarListaDTOs(dominio.getListaProductos());
+		
+		return new FacturaDTO(dominio.getCodigo(),
+				cliente, 
+				empleado,
+				dominio.getFecha(), 
+				tipopago,
+				listaproductos,
+				dominio.getValor());
 	}
 
 	@Override
@@ -62,12 +68,17 @@ public class FacturaEnsamblador implements IEnsamblador<FacturaDTO, FacturaDomin
 			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de datos de Factura el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
+		
+		ClienteDominio cliente = obtenerClienteEnsamblador().ensamblarDominio(dto.getCliente());
+		ClienteDominio empleado = obtenerClienteEnsamblador().ensamblarDominio(dto.getEmpleado());
+		TipoPagoDominio tipopago = obtenerTipoPagoEnsamblador().ensamblarDominio(dto.getTipoPago());
+		List<DetalleFacturaDominio> listaproductos = obtenerDetalleFacturaEnsamblador().ensamblarListaDominios(dto.getListaProductos());
 		return new FacturaDominio(dto.getCodigo(),
-				obtenerClienteEnsamblador().ensamblarDominio(dto.getCliente()), 
-				obtenerClienteEnsamblador().ensamblarDominio(dto.getEmpleado()),
+				cliente, 
+				empleado,
 				dto.getFecha(), 
-				obtenerTipoPagoEnsamblador().ensamblarDominio(dto.getTipoPago()),
-				obtenerDetalleFacturaEnsamblador().ensamblarListaDominios(dto.getListaProductos()));
+				tipopago,
+				listaproductos);
 	}
 
 	@Override

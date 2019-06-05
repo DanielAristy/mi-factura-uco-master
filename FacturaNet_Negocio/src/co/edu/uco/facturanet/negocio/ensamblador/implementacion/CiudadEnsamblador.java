@@ -34,8 +34,10 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
-		return new CiudadDTO(dominio.getCodigo(), dominio.getNombre(), 
-				obtenerDepartamentoEnsamblador().ensamblarDTO(dominio.getDepartamento()));
+		DepartamentoDTO departamento = obtenerDepartamentoEnsamblador().ensamblarDTO(dominio.getDepartamento());
+		return new CiudadDTO(dominio.getCodigo(), 
+				dominio.getNombre(), 
+				departamento);
 	}
 
 	@Override
@@ -45,8 +47,10 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		
-		return new CiudadDominio(dto.getCodigo(), dto.getNombre(), 
-				obtenerDepartamentoEnsamblador().ensamblarDominio(dto.getDepartamento()));
+		DepartamentoDominio departamento = obtenerDepartamentoEnsamblador().ensamblarDominio(dto.getDepartamento());
+		return new CiudadDominio(dto.getCodigo(), 
+				dto.getNombre(), 
+				departamento);
 	}
 
 	@Override

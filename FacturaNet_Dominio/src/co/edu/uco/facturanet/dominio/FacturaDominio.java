@@ -32,22 +32,21 @@ public class FacturaDominio {
 	private int codigo;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_CLIENTE")
 	private ClienteDominio cliente;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_EMPLEADO")
 	private ClienteDominio empleado;
 
 	@Column(name = "DT_FECHA", nullable = false)
 	private Date fecha;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_TIPO_PAGO")
 	private TipoPagoDominio tipoPago;
 	
-	@ManyToOne
-	@JoinColumn
+	@OneToMany(mappedBy = "factura")
 	private List<DetalleFacturaDominio> listaProductos;
 	
 	public FacturaDominio() {

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name= "FAC_TIPOPAGO_TBL", schema = "dbo")
+@Table(name= "FAC_TIPO_PAGO_TBL", schema = "dbo")
 public class TipoPagoDominio {
 	
 	@Id

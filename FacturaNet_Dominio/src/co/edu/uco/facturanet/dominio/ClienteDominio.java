@@ -30,7 +30,7 @@ public class ClienteDominio {
 	private String identificacion;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_TIPO_IDENTIFICACION")
 	private TipoIdentificacionDominio tipoIdentificacion;
 	
 	@Column(name = "NV_NOMBRE", nullable = false)
@@ -46,7 +46,7 @@ public class ClienteDominio {
 	private String correoElectronico;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_CIUDAD_RESIDENCIA")
 	private CiudadDominio ciudadResidencia;
 	
 	public ClienteDominio() {

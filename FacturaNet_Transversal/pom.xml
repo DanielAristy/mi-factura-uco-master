@@ -51,6 +51,11 @@
     		<groupId>org.springframework</groupId>
     		<artifactId>spring-context</artifactId>
     		<version>4.0.6.RELEASE</version>
-		</dependency> 
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>7.2.2.jre11</version>
+		</dependency>
   	</dependencies>
 </project>

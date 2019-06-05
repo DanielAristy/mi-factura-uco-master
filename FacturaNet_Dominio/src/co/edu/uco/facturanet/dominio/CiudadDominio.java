@@ -30,7 +30,7 @@ public class CiudadDominio {
 	private String nombre;
 	
 	@ManyToOne()
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_DEPARTAMENTO")
 	private DepartamentoDominio departamento;
 	
 	public CiudadDominio() {

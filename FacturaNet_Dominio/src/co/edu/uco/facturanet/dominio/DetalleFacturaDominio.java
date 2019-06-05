@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name= "FAC_DETALLEFACTURA_TBL", schema = "dbo")
+@Table(name= "FAC_DETALLE_FACTURA_TBL", schema = "dbo")
 public class DetalleFacturaDominio {
 	
 	@Id
@@ -27,11 +27,11 @@ public class DetalleFacturaDominio {
 	private int codigo;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_PRODUCTO")
 	private ProductoDominio producto;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "IN_CODIGO_FACTURA")
 	private FacturaDominio factura;
 	
 	@Column(name = "NU_CANTIDAD", nullable = false)

@@ -1,6 +1,7 @@
 package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
 import java.util.ArrayList;
+import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.DetalleFacturaEnsamblador.obtenerDetalleFacturaEnsamblador;
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.ClienteEnsamblador.obtenerClienteEnsamblador;
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.TipoPagoEnsamblador.obtenerTipoPagoEnsamblador;
 import java.util.List;
@@ -36,7 +37,7 @@ public class FacturaEnsamblador implements IEnsamblador<FacturaDTO, FacturaDomin
 		super();
 	}
 	
-	public static final IEnsamblador<FacturaDTO, FacturaDominio> obtenerFacturaEnsamblador() {
+	public static IEnsamblador<FacturaDTO, FacturaDominio> obtenerFacturaEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -46,25 +47,13 @@ public class FacturaEnsamblador implements IEnsamblador<FacturaDTO, FacturaDomin
 				throw FacturanetException.CREAR("Para ensamblar un objeto de transferencia de datos de Factura el objeto"
 						+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 			}
-			
-			List<DetalleFacturaDTO> listaProductos = new ArrayList<DetalleFacturaDTO>();
-			
-			for (DetalleFacturaDominio i :dominio.getListaProductos()) {
-				
-				FacturaEnsamblador a = (FacturaEnsamblador) FacturaEnsamblador.obtenerFacturaEnsamblador();
-				
-				DetalleFacturaDTO e = new DetalleFacturaDTO(i.getCodigo(),
-						new ProductoDTO(i.getProducto().getCodigo(), i.getProducto().getNombre(), i.getProducto().getValor()),
-						a.ensamblarDTO(i.getFactura()),i.getCantidad());
-				
-				listaProductos.add(e);
-			}
 			return new FacturaDTO(dominio.getCodigo(),
 					obtenerClienteEnsamblador().ensamblarDTO(dominio.getCliente()), 
 					obtenerClienteEnsamblador().ensamblarDTO(dominio.getEmpleado()),
 					dominio.getFecha(), 
 					obtenerTipoPagoEnsamblador().ensamblarDTO(dominio.getTipoPago()),
-					listaProductos);
+					obtenerDetalleFacturaEnsamblador().ensamblarListaDTOs(dominio.getListaProductos()),
+					dominio.getValor());
 	}
 
 	@Override
@@ -73,25 +62,24 @@ public class FacturaEnsamblador implements IEnsamblador<FacturaDTO, FacturaDomin
 			throw FacturanetException.CREAR("Para ensamblar un objeto de dominio de datos de Factura el objeto"
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
-		
-		List<DetalleFacturaDominio> listaProductos = new ArrayList<DetalleFacturaDominio>();
-		
-		for (DetalleFacturaDTO i :dto.getListaProductos()) {
-			
-			FacturaEnsamblador a = (FacturaEnsamblador) FacturaEnsamblador.obtenerFacturaEnsamblador();
-			
-			DetalleFacturaDominio e = new DetalleFacturaDominio(i.getCodigo(),
-					new ProductoDominio(i.getProducto().getCodigo(), i.getProducto().getNombre(), i.getProducto().getValor()),
-					a.ensamblarDominio(i.getFactura()),i.getCantidad());
-			
-			listaProductos.add(e);
-		}
 		return new FacturaDominio(dto.getCodigo(),
 				obtenerClienteEnsamblador().ensamblarDominio(dto.getCliente()), 
 				obtenerClienteEnsamblador().ensamblarDominio(dto.getEmpleado()),
 				dto.getFecha(), 
 				obtenerTipoPagoEnsamblador().ensamblarDominio(dto.getTipoPago()),
-				listaProductos);
+				obtenerDetalleFacturaEnsamblador().ensamblarListaDominios(dto.getListaProductos()));
+	}
+
+	@Override
+	public List<FacturaDominio> ensamblarListaDominios(List<FacturaDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FacturaDTO> ensamblarListaDTOs(List<FacturaDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

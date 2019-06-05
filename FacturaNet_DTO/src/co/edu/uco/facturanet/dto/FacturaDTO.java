@@ -17,21 +17,28 @@ public class FacturaDTO {
 	private ClienteDTO empleado;
 	private Date fecha;
 	private TipoPagoDTO tipopago;
+	private double valor;
 	private List<DetalleFacturaDTO> listaProductos;
 	
 	public FacturaDTO() {
-		setCliente(null);
-		setEmpleado(null);
-		setTipopago(null);
-		setListaProductos(null);
+		super();
 	}
-	
-	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago, List<DetalleFacturaDTO> listaProductos) {
+	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago,double valor) {
 		setCodigo(codigo);
 		setCliente(cliente);
 		setEmpleado(empleado);
 		setFecha(fecha);
 		setTipopago(tipopago);
+		setValor(valor);
+	}	
+		
+	public FacturaDTO(int codigo, ClienteDTO cliente, ClienteDTO empleado, Date fecha, TipoPagoDTO tipopago, List<DetalleFacturaDTO> listaProductos, double valor) {
+		setCodigo(codigo);
+		setCliente(cliente);
+		setEmpleado(empleado);
+		setFecha(fecha);
+		setTipopago(tipopago);
+		setValor(valor);
 		setListaProductos(listaProductos);
 	}
 	

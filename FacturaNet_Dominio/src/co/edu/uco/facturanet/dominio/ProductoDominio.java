@@ -20,24 +20,24 @@ public class ProductoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IN_CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO")
 	private int codigo;
 	
-	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", length = 500)
 	private String nombre;
 	
-	@Column(name = "NU_VALOR", nullable = false)
+	@Column(name = "NU_VALOR", length = 500)
 	private double valor;
 	
 	public ProductoDominio() {
+		setNombre(null);
 		
 	}
 	
 	public ProductoDominio(int codigo, String nombre, double valor) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.valor = valor;
+		setCodigo(codigo);
+		setNombre(nombre);
+		setValor(valor);
 	}
 	
 	public void setCodigo(int codigo) {
@@ -50,10 +50,10 @@ public class ProductoDominio {
 	public void setNombre(String nombre) {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
-			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre del producto no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (nombreTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El nombre del producto no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!nombreTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("El nombre del producto ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}

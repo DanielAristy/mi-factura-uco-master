@@ -9,17 +9,22 @@ import lombok.Getter;
 @Getter
 public class FacturanetException extends RuntimeException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Throwable excepcionRaiz;
 	private String mensaje;
 	private CapaEnum capa;
 	
+	
+	private FacturanetException(Throwable excepcionRaiz, String mensaje, CapaEnum capa) {
+		setMensaje(mensaje);
+		setExcepcionRaiz(excepcionRaiz);
+		setCapa(capa);
+	}
+	
 	public static FacturanetException CREAR (Throwable excepcionRaiz, String mensaje, CapaEnum capa) {
 		return new FacturanetException(excepcionRaiz, mensaje, capa);
 	}
+	
 	public static FacturanetException CREAR (String mensaje) {
 		return new FacturanetException(null, mensaje, null);
 	}
@@ -30,12 +35,6 @@ public class FacturanetException extends RuntimeException {
 		return new FacturanetException(excepcionRaiz, mensaje, null);
 	}
 	
-	private FacturanetException(Throwable excepcionRaiz, String mensaje, CapaEnum capa) {
-		setMensaje(mensaje);
-		setExcepcionRaiz(excepcionRaiz);
-		setCapa(capa);
-	}
-
 	private void setExcepcionRaiz(Throwable excepcionRaiz) {
 		this.excepcionRaiz = ObjectUtils.defaultIfNull(excepcionRaiz, new Exception(mensaje));
 	}

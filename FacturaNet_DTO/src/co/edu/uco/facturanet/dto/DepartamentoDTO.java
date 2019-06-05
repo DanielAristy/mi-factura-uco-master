@@ -13,7 +13,7 @@ public class DepartamentoDTO {
 	private PaisDTO pais;
 	
 	public DepartamentoDTO() {
-		setPais(null);
+		super();
 	}
 	
 	public DepartamentoDTO(int codigo, String nombre, PaisDTO pais) {

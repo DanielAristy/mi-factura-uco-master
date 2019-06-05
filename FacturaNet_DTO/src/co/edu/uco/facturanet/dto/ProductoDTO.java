@@ -12,7 +12,7 @@ public class ProductoDTO {
 	private double valor;
 	
 	public ProductoDTO() {
-		
+		super();
 	}
 
 	

@@ -1,5 +1,7 @@
 package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
+import java.util.List;
+
 import co.edu.uco.facturanet.dominio.TipoPagoDominio;
 import co.edu.uco.facturanet.dto.TipoPagoDTO;
 import co.edu.uco.facturanet.negocio.ensamblador.IEnsamblador;
@@ -35,5 +37,17 @@ public class TipoPagoEnsamblador implements IEnsamblador<TipoPagoDTO, TipoPagoDo
 					+ " de dominio de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		return new TipoPagoDTO(dominio.getCodigo(), dominio.getNombre());
+	}
+
+	@Override
+	public List<TipoPagoDominio> ensamblarListaDominios(List<TipoPagoDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TipoPagoDTO> ensamblarListaDTOs(List<TipoPagoDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -10,7 +10,7 @@ public class TipoPagoDTO {
 	private String nombre;
 	
 	public TipoPagoDTO() {
-		
+		super();
 	}
 	
 	public TipoPagoDTO(int codigo, String nombre) {

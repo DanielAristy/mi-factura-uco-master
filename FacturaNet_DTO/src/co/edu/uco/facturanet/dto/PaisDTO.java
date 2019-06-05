@@ -12,7 +12,7 @@ public class PaisDTO {
 	private String nombre;
 	
 	public PaisDTO() {
-		
+		super();
 	}
 	
 	public PaisDTO(int codigo, String nombre) {

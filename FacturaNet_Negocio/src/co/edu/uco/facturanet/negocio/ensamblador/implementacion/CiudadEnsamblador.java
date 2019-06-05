@@ -2,6 +2,9 @@ package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
 import co.edu.uco.facturanet.dominio.CiudadDominio;
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.DepartamentoEnsamblador.obtenerDepartamentoEnsamblador;
+
+import java.util.List;
+
 import co.edu.uco.facturanet.dominio.DepartamentoDominio;
 import co.edu.uco.facturanet.dominio.PaisDominio;
 import co.edu.uco.facturanet.dto.CiudadDTO;
@@ -20,7 +23,7 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 		super();
 	}
 	
-	public static final IEnsamblador<CiudadDTO, CiudadDominio> obtenerCiudadEnsamblador() {
+	public static IEnsamblador<CiudadDTO, CiudadDominio> obtenerCiudadEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -44,6 +47,18 @@ public class CiudadEnsamblador implements IEnsamblador<CiudadDTO, CiudadDominio>
 		
 		return new CiudadDominio(dto.getCodigo(), dto.getNombre(), 
 				obtenerDepartamentoEnsamblador().ensamblarDominio(dto.getDepartamento()));
+	}
+
+	@Override
+	public List<CiudadDominio> ensamblarListaDominios(List<CiudadDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CiudadDTO> ensamblarListaDTOs(List<CiudadDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,7 @@
 package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
+import java.util.List;
+
 import co.edu.uco.facturanet.dominio.TipoIdentificacionDominio;
 import co.edu.uco.facturanet.dominio.TipoPagoDominio;
 import co.edu.uco.facturanet.dto.TipoIdentificacionDTO;
@@ -17,7 +19,7 @@ public class TipoIdentificacionEnsamblador implements IEnsamblador<TipoIdentific
 		super();
 	}
 	
-	public static final IEnsamblador<TipoIdentificacionDTO, TipoIdentificacionDominio> obtenerTipoIdentificacionEnsamblador() {
+	public static IEnsamblador<TipoIdentificacionDTO, TipoIdentificacionDominio> obtenerTipoIdentificacionEnsamblador() {
 		return INSTANCIA;
 	}
 	
@@ -38,6 +40,18 @@ public class TipoIdentificacionEnsamblador implements IEnsamblador<TipoIdentific
 		}
 		return new TipoIdentificacionDominio(dto.getCodigo(), dto.getNombre());
 		
+	}
+
+	@Override
+	public List<TipoIdentificacionDominio> ensamblarListaDominios(List<TipoIdentificacionDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TipoIdentificacionDTO> ensamblarListaDTOs(List<TipoIdentificacionDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

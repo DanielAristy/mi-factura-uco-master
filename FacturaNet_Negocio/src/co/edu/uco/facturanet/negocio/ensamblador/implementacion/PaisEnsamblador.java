@@ -1,5 +1,7 @@
 package co.edu.uco.facturanet.negocio.ensamblador.implementacion;
 
+import java.util.List;
+
 import co.edu.uco.facturanet.dominio.PaisDominio;
 import co.edu.uco.facturanet.dominio.ProductoDominio;
 import co.edu.uco.facturanet.dto.PaisDTO;
@@ -18,7 +20,7 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 		super();
 	}
 	
-	public static final IEnsamblador<PaisDTO, PaisDominio> obtenerPaisEnsamblador() {
+	public static IEnsamblador<PaisDTO, PaisDominio> obtenerPaisEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -38,6 +40,18 @@ public class PaisEnsamblador implements IEnsamblador<PaisDTO, PaisDominio>{
 					+ " de transferencia de datos no puede ser nulo", CapaEnum.NEGOCIO);
 		}
 		return new PaisDominio(dto.getCodigo(), dto.getNombre());
+	}
+
+	@Override
+	public List<PaisDominio> ensamblarListaDominios(List<PaisDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PaisDTO> ensamblarListaDTOs(List<PaisDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

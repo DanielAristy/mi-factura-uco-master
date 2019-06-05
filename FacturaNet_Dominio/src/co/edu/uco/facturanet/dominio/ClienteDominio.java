@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name= "FAC_CLIENTE_TBL", schema = "dbo")
+@Table(name= "FAC_USUARIO_TBL", schema = "dbo")
 public class ClienteDominio {
 	
 	@Id
@@ -50,22 +50,27 @@ public class ClienteDominio {
 	private CiudadDominio ciudadResidencia;
 	
 	public ClienteDominio() {
+		setIdentificacion(null);
 		setTipoIdentificacion(null);
+		setNombre(null);
+		setTelefono(null);
+		setDireccion(null);
+		setCorreoElectronico(null);
 		setCiudadResidencia(null);
 	}
 	
 	public ClienteDominio(int codigo, String identificacion, TipoIdentificacionDominio tipoIdentificacion,
 			String nombre, String telefono, String direccion, String correoElectronico,
 			CiudadDominio ciudadResidencia) {
-		super();
-		this.codigo = codigo;
-		this.identificacion = identificacion;
-		this.tipoIdentificacion = tipoIdentificacion;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.correoElectronico = correoElectronico;
-		this.ciudadResidencia = ciudadResidencia;
+		
+		setCodigo(codigo);
+		setIdentificacion(identificacion);
+		setTipoIdentificacion(tipoIdentificacion);
+		setNombre(nombre);
+		setTelefono(telefono);
+		setDireccion(direccion);
+		setCorreoElectronico(correoElectronico);
+		setCiudadResidencia(ciudadResidencia);
 	}
 	
 	
@@ -79,10 +84,10 @@ public class ClienteDominio {
 	public void setNombre(String nombre) {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
-			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre del usuario no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (nombreTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El nombre del usuario no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("El nombre del usuario ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}
@@ -92,10 +97,10 @@ public class ClienteDominio {
 	public void setIdentificacion(String identificacion) {
 		String identificacionTmp = StringUtils.trimToEmpty(identificacion);
 		if (identificacionTmp.length() > 0 ) {
-			if (identificacionTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("La identificacion no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (identificacionTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("La identificacion no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (identificacionTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!identificacionTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("la identificacion ingresado no es valida", CapaEnum.DOMINIO);
 			}
 		}
@@ -108,10 +113,10 @@ public class ClienteDominio {
 	public void setTelefono(String telefono) {
 		String telefonoTmp = StringUtils.trimToEmpty(telefono);
 		if (telefonoTmp.length() > 0 ) {
-			if (telefonoTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El telefono no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (telefonoTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El telefono no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (telefonoTmp.matches("^[a-zA-Z0-9ñÑ ]+$")) {
+			if (!telefonoTmp.matches("^[a-zA-Z0-9ñÑ ]+$")) {
 				throw FacturanetException.CREAR("El telefono ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}
@@ -121,10 +126,10 @@ public class ClienteDominio {
 	public void setDireccion(String direccion) {
 		String direccionTmp = StringUtils.trimToEmpty(direccion);
 		if (direccionTmp.length() > 0 ) {
-			if (direccionTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("la direccion no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (direccionTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("la direccion no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (direccionTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!direccionTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("La direccion que a ingresado no es valida", CapaEnum.DOMINIO);
 			}
 		}
@@ -134,10 +139,10 @@ public class ClienteDominio {
 	public void setCorreoElectronico(String correoElectronico) {
 		String correoTmp = StringUtils.trimToEmpty(correoElectronico);
 		if (correoTmp.length() > 0 ) {
-			if (correoTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El correo electronico no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (correoTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El correo electronico no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (correoTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!correoTmp.matches("^[a-zA-Z0-9ñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("La direccion de correo electronico que a ingresado no es valida", CapaEnum.DOMINIO);
 			}
 		}

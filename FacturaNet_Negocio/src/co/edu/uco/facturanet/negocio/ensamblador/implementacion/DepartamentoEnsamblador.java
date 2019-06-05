@@ -9,6 +9,8 @@ import co.edu.uco.facturanet.transversal.enumeracion.CapaEnum;
 import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.PaisEnsamblador.obtenerPaisEnsamblador;
 
+import java.util.List;
+
 public class DepartamentoEnsamblador implements IEnsamblador<DepartamentoDTO, DepartamentoDominio> {
 	
 	public static final IEnsamblador<DepartamentoDTO, DepartamentoDominio> 
@@ -18,7 +20,7 @@ public class DepartamentoEnsamblador implements IEnsamblador<DepartamentoDTO, De
 		super();
 	}
 	
-	public static final IEnsamblador<DepartamentoDTO, DepartamentoDominio> obtenerDepartamentoEnsamblador() {
+	public static IEnsamblador<DepartamentoDTO, DepartamentoDominio> obtenerDepartamentoEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -41,6 +43,18 @@ public class DepartamentoEnsamblador implements IEnsamblador<DepartamentoDTO, De
 		}
 		return new DepartamentoDominio(dto.getCodigo(), dto.getNombre(), 
 				obtenerPaisEnsamblador().ensamblarDominio(dto.getPais()));
+	}
+
+	@Override
+	public List<DepartamentoDominio> ensamblarListaDominios(List<DepartamentoDTO> listaDTOs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DepartamentoDTO> ensamblarListaDTOs(List<DepartamentoDominio> listaDominios) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -23,17 +23,16 @@ public class TipoPagoDominio {
 	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", nullable = false, length = 500)
 	private String nombre;
 	
 	public TipoPagoDominio() {
-		
+		setNombre(null);
 	}
 	
 	public TipoPagoDominio(int codigo, String nombre) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
+		setCodigo(codigo);
+		setNombre(nombre);
 	}
 	
 	public void setCodigo(int codigo) {
@@ -46,10 +45,10 @@ public class TipoPagoDominio {
 	public void setNombre(String nombre) {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
-			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre del tipo de pago no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (nombreTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El nombre del tipo de pago no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("El nombre del tipo de pago ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}

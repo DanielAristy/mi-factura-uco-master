@@ -10,17 +10,19 @@ public class DetalleFacturaDTO {
 	private ProductoDTO producto;
 	private FacturaDTO factura;
 	private double cantidad;
+	private double valor;
 	
 	public DetalleFacturaDTO() {
 		setProducto(null);
 		setFactura(null);
 	}
 	
-	public DetalleFacturaDTO(int codigo, ProductoDTO producto,FacturaDTO factura, double cantidad) {
+	public DetalleFacturaDTO(int codigo, ProductoDTO producto,FacturaDTO factura, double cantidad,double valor) {
 		setCodigo(codigo);
-		setProducto(producto);
 		setFactura(factura);
+		setProducto(producto);
 		setCantidad(cantidad);
+		setValor(valor);
 	
 	}
 	
@@ -31,7 +33,5 @@ public class DetalleFacturaDTO {
 	public FacturaDTO getFactura() {
 		return ObjectUtils.defaultIfNull(factura, new FacturaDTO());
 	}
-
-
-
+	
 }

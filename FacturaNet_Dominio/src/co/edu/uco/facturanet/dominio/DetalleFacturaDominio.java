@@ -23,31 +23,32 @@ public class DetalleFacturaDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IN_CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO")
 	private int codigo;
-	
-	@ManyToOne
-	@JoinColumn(name = "IN_CODIGO_PRODUCTO")
-	private ProductoDominio producto;
 	
 	@ManyToOne
 	@JoinColumn(name = "IN_CODIGO_FACTURA")
 	private FacturaDominio factura;
 	
-	@Column(name = "NU_CANTIDAD", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "IN_CODIGO_PRODUCTO")
+	private ProductoDominio producto;
+	
+	@Column(name = "NU_CANTIDAD")
 	private double cantidad;
 	
 	public DetalleFacturaDominio() {
-		setFactura(null);
 		setProducto(null);
+		setFactura(null);
+		
 	}
 	
 	public DetalleFacturaDominio(int codigo, ProductoDominio producto, FacturaDominio factura, double cantidad) {
-		super();
-		this.codigo = codigo;
-		this.producto = producto;
-		this.factura = factura;
-		this.cantidad = cantidad;
+		
+		setCodigo(codigo);
+		setProducto(producto);
+		setFactura(factura);
+		setCantidad(cantidad);
 	}
 		
 	public void setCodigo(int codigo) {
@@ -67,7 +68,7 @@ public class DetalleFacturaDominio {
 	}
 
 	public void setCantidad(double cantidad) {
-		if (cantidad <= 0 ) {
+		if (cantidad < 0 ) {
 			throw FacturanetException.CREAR("La cantidad no puede ser menor o igual a 0", CapaEnum.DOMINIO);
 		}
 		this.cantidad = cantidad;

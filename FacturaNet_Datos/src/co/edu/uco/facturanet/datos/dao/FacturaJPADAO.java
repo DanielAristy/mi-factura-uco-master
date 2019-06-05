@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import co.edu.uco.facturanet.dominio.FacturaDominio;
 
 @Repository
-public interface IFacturaJPADAO extends JpaRepository<FacturaDominio, Integer> {
+public interface FacturaJPADAO extends JpaRepository<FacturaDominio, Integer> {
 	
 	
 

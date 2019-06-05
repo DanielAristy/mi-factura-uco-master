@@ -12,7 +12,7 @@ public class CiudadDTO {
 	private DepartamentoDTO departamento;
 	
 	public CiudadDTO() {
-		setDepartamento(null);
+		super();
 	}
 	
 	public CiudadDTO(int codigo, String nombre, DepartamentoDTO departamento) {
@@ -26,7 +26,7 @@ public class CiudadDTO {
 		return StringUtils.defaultString(nombre);
 	}
 	
-	public DepartamentoDTO setDepartamento() {
+	public DepartamentoDTO getDepartamento() {
 		return ObjectUtils.defaultIfNull(departamento, new DepartamentoDTO());
 	}
 	

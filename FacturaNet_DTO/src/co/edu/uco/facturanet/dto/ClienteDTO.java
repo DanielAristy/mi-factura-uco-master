@@ -17,7 +17,7 @@ public class ClienteDTO {
 	private CiudadDTO ciudadResidencia;
 	
 	public ClienteDTO() {
-		
+		super();
 	}
 	
 	public ClienteDTO(int codigo, String identificacion, TipoIdentificacionDTO tipoIdentificacion, String nombre,

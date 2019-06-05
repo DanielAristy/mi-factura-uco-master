@@ -6,6 +6,8 @@ import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.TipoPagoE
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.ProductoEnsamblador.obtenerProductoEnsamblador;
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import static co.edu.uco.facturanet.negocio.ensamblador.implementacion.FacturaEnsamblador.obtenerFacturaEnsamblador;
 
 import co.edu.uco.facturanet.dominio.CiudadDominio;
@@ -39,7 +41,7 @@ public class DetalleFacturaEnsamblador implements IEnsamblador<DetalleFacturaDTO
 		super();
 	}
 	
-	private static final IEnsamblador<DetalleFacturaDTO, DetalleFacturaDominio> obtenerDetalleFacturaEnsamblador() {
+	public static IEnsamblador<DetalleFacturaDTO, DetalleFacturaDominio> obtenerDetalleFacturaEnsamblador() {
 		return INSTANCIA;
 	}
 
@@ -53,7 +55,8 @@ public class DetalleFacturaEnsamblador implements IEnsamblador<DetalleFacturaDTO
 		return new DetalleFacturaDTO(dominio.getCodigo(),
 				ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDTO(dominio.getProducto()),
 				FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDTO(dominio.getFactura()),
-				dominio.getCantidad());
+				dominio.getCantidad(),
+				dominio.getValor());
 	}
 
 	@Override
@@ -67,6 +70,32 @@ public class DetalleFacturaEnsamblador implements IEnsamblador<DetalleFacturaDTO
 				ProductoEnsamblador.obtenerProductoEnsamblador().ensamblarDominio(dto.getProducto()),
 				FacturaEnsamblador.obtenerFacturaEnsamblador().ensamblarDominio(dto.getFactura()),
 				dto.getCantidad());
+	}
+
+	@Override
+	public List<DetalleFacturaDominio> ensamblarListaDominios(List<DetalleFacturaDTO> listaDTOs) {
+		List<DetalleFacturaDTO> listaDTOsLocal = ObjectUtils.defaultIfNull(listaDTOs, new ArrayList<DetalleFacturaDTO>());
+		List<DetalleFacturaDominio> listaDominiosRetorno = new ArrayList<DetalleFacturaDominio>();
+
+		for (DetalleFacturaDTO detalleFacturaDTO : listaDTOsLocal) {
+			listaDominiosRetorno.add(ensamblarDominio(detalleFacturaDTO));
+		}
+
+		return listaDominiosRetorno;
+
+	}
+
+	@Override
+	public List<DetalleFacturaDTO> ensamblarListaDTOs(List<DetalleFacturaDominio> listaDominios) {
+		List<DetalleFacturaDominio> listaDominiosLocal = ObjectUtils.defaultIfNull(listaDominios, new ArrayList<DetalleFacturaDominio>());
+		List<DetalleFacturaDTO> listaDTOsRetorno = new ArrayList<DetalleFacturaDTO>();
+
+		for (DetalleFacturaDominio detalleFacturaDominio : listaDominiosLocal) {
+			listaDTOsRetorno.add(ensamblarDTO(detalleFacturaDominio));
+		}
+
+		return listaDTOsRetorno;
+
 	}
 
 }

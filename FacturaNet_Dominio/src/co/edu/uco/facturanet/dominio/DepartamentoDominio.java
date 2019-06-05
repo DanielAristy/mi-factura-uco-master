@@ -23,10 +23,10 @@ public class DepartamentoDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IN_CODIGO")
+	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NV_NOMBRE")
+	@Column(name = "NV_NOMBRE", nullable = false, length = 500)
 	private String nombre;
 	
 	@ManyToOne()
@@ -34,14 +34,14 @@ public class DepartamentoDominio {
 	private PaisDominio pais;
 	
 	public DepartamentoDominio() {
+		setNombre(null);
 		setPais(null);
 	}
 	
 	public DepartamentoDominio(int codigo, String nombre, PaisDominio pais) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.pais = pais;
+		setCodigo(codigo);
+		setNombre(nombre);
+		setPais(pais);
 	}
 
 	public void setCodigo(int codigo) {
@@ -54,10 +54,10 @@ public class DepartamentoDominio {
 	public void setNombre(String nombre) {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
-			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre del departamento no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (nombreTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El nombre del departamento no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("El nombre del departamento ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}

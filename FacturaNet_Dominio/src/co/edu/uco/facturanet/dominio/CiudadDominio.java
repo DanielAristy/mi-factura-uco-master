@@ -26,7 +26,7 @@ public class CiudadDominio {
 	@Column(name = "IN_CODIGO", nullable = false)
 	private int codigo;
 	
-	@Column(name = "NV_NOMBRE", nullable = false, length = 50)
+	@Column(name = "NV_NOMBRE", nullable = false, length = 500)
 	private String nombre;
 	
 	@ManyToOne()
@@ -34,15 +34,15 @@ public class CiudadDominio {
 	private DepartamentoDominio departamento;
 	
 	public CiudadDominio() {
+		setNombre(null);
 		setDepartamento(null);
 	}
 	
 	
 	public CiudadDominio(int codigo, String nombre, DepartamentoDominio departamento) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.departamento = departamento;
+		setCodigo(codigo);
+		setNombre(nombre);
+		setDepartamento(departamento);
 	}
 
 
@@ -56,10 +56,10 @@ public class CiudadDominio {
 	public void setNombre(String nombre) {
 		String nombreTmp = StringUtils.trimToEmpty(nombre);
 		if (nombreTmp.length() > 0 ) {
-			if (nombreTmp.length() > 50 ) {
-				throw FacturanetException.CREAR("El nombre de la ciudad no puede tener mas de 50 caracteres", CapaEnum.DOMINIO);
+			if (nombreTmp.length() > 500 ) {
+				throw FacturanetException.CREAR("El nombre de la ciudad no puede tener mas de 500 caracteres", CapaEnum.DOMINIO);
 			}
-			if (nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
+			if (!nombreTmp.matches("^[a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$")) {
 				throw FacturanetException.CREAR("El nombre de la ciudad ingresado no es valido", CapaEnum.DOMINIO);
 			}
 		}

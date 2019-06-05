@@ -8,9 +8,12 @@ import co.edu.uco.facturanet.transversal.excepcion.FacturanetException;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +23,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Data
 @Entity
@@ -28,7 +33,7 @@ public class FacturaDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "IN_CODIGO", nullable = false)
+	@Column(name = "IN_CODIGO")
 	private int codigo;
 	
 	@ManyToOne
@@ -39,14 +44,16 @@ public class FacturaDominio {
 	@JoinColumn(name = "IN_CODIGO_EMPLEADO")
 	private ClienteDominio empleado;
 
-	@Column(name = "DT_FECHA", nullable = false)
+	@Column(name = "DT_FECHA")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
+
 	
 	@ManyToOne
 	@JoinColumn(name = "IN_CODIGO_TIPO_PAGO")
 	private TipoPagoDominio tipoPago;
 	
-	@OneToMany(mappedBy = "factura")
+	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
 	private List<DetalleFacturaDominio> listaProductos;
 	
 	public FacturaDominio() {
@@ -54,17 +61,29 @@ public class FacturaDominio {
 		setEmpleado(null);
 		setFecha(null);
 		setTipoPago(null);
+		setListaProductos(null);
+	}
+	
+	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
+			TipoPagoDominio tipoPago) {
+		
+		setCodigo(codigo);
+		setCliente(cliente);
+		setEmpleado(empleado);
+		setFecha(fecha);
+		setTipoPago(tipoPago);
+		setListaProductos(null);
 	}
 	
 	public FacturaDominio(int codigo, ClienteDominio cliente, ClienteDominio empleado, Date fecha,
 			TipoPagoDominio tipoPago, List<DetalleFacturaDominio> listaProductos) {
-		super();
-		this.codigo = codigo;
-		this.cliente = cliente;
-		this.empleado = empleado;
-		this.fecha = fecha;
-		this.tipoPago = tipoPago;
-		this.listaProductos = listaProductos;
+		
+		setCodigo(codigo);
+		setCliente(cliente);
+		setEmpleado(empleado);
+		setFecha(fecha);
+		setTipoPago(tipoPago);
+		setListaProductos(listaProductos);
 	}
 	
 	public void setCodigo(int codigo) {
@@ -84,15 +103,30 @@ public class FacturaDominio {
 	}
 
 	public void setFecha(Date fecha) {
-		this.fecha = ObjectUtils.defaultIfNull(fecha, new Date());
+		this.fecha = ObjectUtils.defaultIfNull(fecha, Calendar.getInstance().getTime());
+
+		Calendar fechaCalendario = new GregorianCalendar();
+		fechaCalendario.setTime(this.fecha);
+		fechaCalendario.set(Calendar.MILLISECOND, 0);
+
+		this.fecha = fechaCalendario.getTime();
 	}
 
 	public void setTipoPago(TipoPagoDominio tipoPago) {
 		this.tipoPago = ObjectUtils.defaultIfNull(tipoPago, new TipoPagoDominio());
 	}
+	
+	public TipoPagoDominio getTipoPago() {
+		return ObjectUtils.defaultIfNull(tipoPago, new TipoPagoDominio());
+	}
 
 	public void setListaProductos(List<DetalleFacturaDominio> listaProductos) {
 		this.listaProductos = ObjectUtils.defaultIfNull(listaProductos, new ArrayList<DetalleFacturaDominio>());
+		
+		for (DetalleFacturaDominio i: this.listaProductos) {
+			i.setFactura(this);
+		}
+		
 	}
 	
 	public List<DetalleFacturaDominio> getListaProductos() {
